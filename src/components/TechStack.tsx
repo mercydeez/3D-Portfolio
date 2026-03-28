@@ -139,28 +139,29 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 1024);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
-      setIsActive(scrollY > threshold);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024);
     };
-    document.querySelectorAll(".header a").forEach((elem) => {
-      const element = elem as HTMLAnchorElement;
-      element.addEventListener("click", () => {
-        const interval = setInterval(() => {
-          handleScroll();
-        }, 10);
-        setTimeout(() => {
-          clearInterval(interval);
-        }, 1000);
-      });
-    });
+
+    const handleScroll = () => {
+      const section = document.getElementById("techstack");
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.9 && rect.bottom > 0;
+      setIsActive(inView);
+    };
+
+    handleResize();
+    handleScroll();
+
+    window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
+
     return () => {
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -180,8 +181,13 @@ const TechStack = () => {
     );
   }, []);
 
+    const activeSpheres = useMemo(
+      () => (isMobile ? spheres.slice(0, 10) : spheres),
+      [isMobile]
+    );
+
   return (
-    <div className="techstack">
+      <div className="techstack" id="techstack">
       <h2> My Techstack</h2>
 
       <Canvas
@@ -203,7 +209,7 @@ const TechStack = () => {
         <directionalLight position={[0, 5, -4]} intensity={2} />
         <Physics gravity={[0, 0, 0]}>
           <Pointer isActive={isActive} />
-          {spheres.map((props, i) => (
+          {activeSpheres.map((props, i) => (
             <SphereGeo
               key={i}
               {...props}
@@ -217,9 +223,11 @@ const TechStack = () => {
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
-        <EffectComposer enableNormalPass={false}>
-          <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
-        </EffectComposer>
+        {!isMobile && (
+          <EffectComposer enableNormalPass={false}>
+            <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
+          </EffectComposer>
+        )}
       </Canvas>
     </div>
   );
