@@ -360,6 +360,15 @@ h2.landing-info-h2 {
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .landing-circle1,
+  .landing-circle2,
+  .nav-fade,
+  .character-rim {
+    display: none !important;
+  }
+}
+
 @media screen and (min-width: 1025px) {
   .character-model {
     height: 100vh;
