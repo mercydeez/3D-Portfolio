@@ -14,33 +14,50 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Lulu Conversational AI Platform",
-    category:
-      "Enterprise API-based AI system serving real-time predictions and natural language queries. Built on event-driven architecture with OpenAI, FastAPI, Docker Compose, and Redis pub/sub.",
-    tools: "Python, FastAPI, Docker, OpenAI, PostgreSQL, Redis, Next.js",
+    title: "Lulu Sales Intelligence Dashboard",
+    category: "Enterprise analytics platform with real-time AI chat",
+    tools: "Next.js, FastAPI, PostgreSQL, Redis, Docker, OpenAI",
+    status: "Completed",
     link: "https://github.com/mercydeez/lulu-sales-intelligence-dashboard",
-    status: "Completed",
+    image: "/images/lulu-dashboard.png",
   },
   {
-    title: "Enterprise RAG Pipeline",
-    category:
-      "Production-grade Retrieval-Augmented Generation API for querying internal document stores using Pinecone vector search and LangChain.",
-    tools: "LangChain, Pinecone, OpenAI, Python, Docker, FastAPI",
-    status: "Completed",
+    title: "Bombay Tribe Sales Dashboard",
+    category: "Multi-page Power BI tracking ₹1.57M revenue pipeline",
+    tools: "Power BI, DAX, Data Modeling",
+    status: "Private",
+    image: "/images/bombay-tribe.png",
   },
   {
-    title: "Multi-Agent Support Automation",
-    category:
-      "Intelligent workflow automation using LangGraph and n8n to ingest tickets, analyze sentiment, and autonomously draft responses.",
-    tools: "LangGraph, FastAPI, n8n, Python",
-    status: "Active",
+    title: "Forest Fire Risk Prediction",
+    category: "Real-time ML pipeline from environmental sensor data",
+    tools: "Python, Scikit-learn, Streamlit, Flask",
+    status: "Completed",
+    link: "https://github.com/mercydeez/forest-fire-risk-prediction",
+    image: "/images/forest-fire-danger.png",
   },
   {
-    title: "Hugging Face Inference Microservice",
-    category:
-      "Stateless containerized microservice serving open-source Hugging Face models as inference APIs, deployed on AWS.",
-    tools: "Hugging Face, FastAPI, Docker, AWS, Python",
+    title: "Lung Cancer Risk Prediction",
+    category: "Random Forest classifier for clinical symptom screening",
+    tools: "Python, Random Forest, Scikit-learn, Streamlit",
     status: "Completed",
+    link: "https://github.com/mercydeez/lung_cancer_predictor",
+    image: "/images/lung-cancer.png",
+  },
+  {
+    title: "Insurance Analysis Dashboard",
+    category: "Multi-page BI dashboard covering policy and claims analytics",
+    tools: "Power BI, DAX, Data Modeling",
+    status: "Completed",
+    link: "https://github.com/mercydeez/Murphy_Insurance",
+    image: "/images/insurance.png",
+  },
+  {
+    title: "TrustMetrix Design Ethics Study",
+    category: "Two contrasting mobile prototypes exploring dark UX patterns",
+    tools: "HTML, CSS, JavaScript, UX Design",
+    status: "Private",
+    image: "/images/trustmetrix.png",
   },
 ];
 
@@ -78,7 +95,6 @@ const Work = () => {
         </h2>
 
         <div className="carousel-wrapper">
-          {/* Navigation Arrows */}
           <button
             className="carousel-arrow carousel-arrow-left"
             onClick={goToPrev}
@@ -96,7 +112,6 @@ const Work = () => {
             <MdArrowForward />
           </button>
 
-          {/* Slides */}
           <div className="carousel-track-container">
             <div
               className="carousel-track"
@@ -152,7 +167,6 @@ const Work = () => {
             </div>
           </div>
 
-          {/* Dot Indicators */}
           <div className="carousel-dots">
             {projects.map((_, index) => (
               <button

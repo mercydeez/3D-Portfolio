@@ -1,4 +1,3 @@
-/* ── Work Section ── */
 .work-section {
   position: relative;
   z-index: 1;
@@ -13,7 +12,7 @@
   margin-bottom: 50px;
 }
 
-.work-section h2>span {
+.work-section h2 > span {
   color: var(--accentColor);
 }
 
@@ -270,35 +269,6 @@
   }
 }
 
-@media only screen and (max-width: 1025px) {
-  .carousel-content {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .carousel-info {
-    width: 100%;
-  }
-
-  .carousel-image-wrapper {
-    width: 100%;
-  }
-
-  .carousel-arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-  }
-
-  .carousel-arrow-left {
-    left: 10px;
-  }
-
-  .carousel-arrow-right {
-    right: 10px;
-  }
-}
-
 @media only screen and (max-width: 900px) {
   .work-section {
     padding: 50px 0;
@@ -327,5 +297,34 @@
 
   .work-image img {
     max-height: 250px;
+  }
+}
+
+@media only screen and (max-width: 1025px) {
+  .carousel-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .carousel-info {
+    width: 100%;
+  }
+
+  .carousel-image-wrapper {
+    width: 100%;
+  }
+
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .carousel-arrow-left {
+    left: 10px;
+  }
+
+  .carousel-arrow-right {
+    right: 10px;
   }
 }

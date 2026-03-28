@@ -69,11 +69,19 @@
   letter-spacing: 1px;
   margin: 0;
 }
+.what-content-secondary h3 {
+  font-size: 30px;
+  line-height: 1.05;
+}
 .what-content p {
   font-size: 14px;
   line-height: 18px;
   font-weight: 200;
   letter-spacing: 0.7px;
+}
+.what-content-secondary p {
+  font-size: 13px;
+  line-height: 17px;
 }
 .what-content h4 {
   font-weight: 300;
@@ -233,6 +241,9 @@
   gap: 5px;
   flex-wrap: wrap;
 }
+.what-content-secondary .what-content-flex {
+  gap: 4px;
+}
 .what-tags {
   font-size: 13px;
   font-weight: 400;
@@ -240,6 +251,10 @@
   background-color: rgba(255, 255, 255, 0.15);
   border: 1px solid #ffffff50;
   border-radius: 30px;
+}
+.what-content-secondary .what-tags {
+  font-size: 12px;
+  padding: 2px 6px;
 }
 @media only screen and (max-width: 1600px) {
   .what-box h2 {
@@ -256,12 +271,19 @@
   .what-content h3 {
     font-size: 28px;
   }
+  .what-content-secondary h3 {
+    font-size: 24px;
+  }
   .what-content {
     padding: 30px;
     width: 100%;
   }
   .what-content p {
     font-size: 13px;
+  }
+  .what-content-secondary p {
+    font-size: 12px;
+    line-height: 16px;
   }
   .what-noTouch:hover,
   .what-content-active {
@@ -377,6 +399,9 @@
   }
   .what-content h3 {
     font-size: 25px;
+  }
+  .what-content-secondary h3 {
+    font-size: 21px;
   }
 }
 @media only screen and (max-width: 550px) {

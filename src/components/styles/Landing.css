@@ -262,6 +262,44 @@ h2.landing-info-h2 {
   left: 0;
 }
 
+@media screen and (max-width: 767px) {
+  .landing-circle1,
+  .landing-circle2 {
+    width: 220px;
+    height: 220px;
+    filter: blur(45px);
+  }
+
+  .landing-circle1 {
+    animation: loadingCircleMobile 5s linear infinite;
+  }
+
+  .landing-circle2 {
+    display: block;
+    animation: loadingCircle2Mobile 5s linear infinite;
+  }
+}
+
+@keyframes loadingCircleMobile {
+  0% {
+    transform: translate(-72%, -58%) rotateZ(0deg);
+  }
+
+  100% {
+    transform: translate(-72%, -58%) rotateZ(360deg);
+  }
+}
+
+@keyframes loadingCircle2Mobile {
+  0% {
+    transform: translate(58%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(58%, -50%) rotate(360deg);
+  }
+}
+
 @media screen and (min-width: 500px) {
   .landing-circle2 {
     display: block;
