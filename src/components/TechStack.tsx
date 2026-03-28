@@ -40,7 +40,7 @@ const textures = imageUrls.map((url) => {
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
 const spheres = [...Array(imageUrls.length)].map(() => ({
-  scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
+  scale: [1.05, 1.15, 1.25, 1.35, 1.2][Math.floor(Math.random() * 5)],
 }));
 
 type SphereProps = {
