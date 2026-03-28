@@ -3,13 +3,21 @@ import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
-const projects = [
+interface Project {
+  title: string;
+  category: string;
+  tools: string;
+  status: string;
+  link?: string;
+  image?: string;
+}
+
+const projects: Project[] = [
   {
     title: "Lulu Conversational AI Platform",
     category:
       "Enterprise API-based AI system serving real-time predictions and natural language queries. Built on event-driven architecture with OpenAI, FastAPI, Docker Compose, and Redis pub/sub.",
     tools: "Python, FastAPI, Docker, OpenAI, PostgreSQL, Redis, Next.js",
-    image: "/images/preview1.png",
     link: "https://github.com/mercydeez/lulu-sales-intelligence-dashboard",
     status: "Completed",
   },
@@ -18,7 +26,6 @@ const projects = [
     category:
       "Production-grade Retrieval-Augmented Generation API for querying internal document stores using Pinecone vector search and LangChain.",
     tools: "LangChain, Pinecone, OpenAI, Python, Docker, FastAPI",
-    image: "/images/preview1.png",
     status: "Completed",
   },
   {
@@ -26,7 +33,6 @@ const projects = [
     category:
       "Intelligent workflow automation using LangGraph and n8n to ingest tickets, analyze sentiment, and autonomously draft responses.",
     tools: "LangGraph, FastAPI, n8n, Python",
-    image: "/images/preview1.png",
     status: "Active",
   },
   {
@@ -34,7 +40,6 @@ const projects = [
     category:
       "Stateless containerized microservice serving open-source Hugging Face models as inference APIs, deployed on AWS.",
     tools: "Hugging Face, FastAPI, Docker, AWS, Python",
-    image: "/images/preview1.png",
     status: "Completed",
   },
 ];
@@ -132,13 +137,15 @@ const Work = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="carousel-image-wrapper">
-                      <WorkImage
-                        image={project.image}
-                        alt={project.title}
-                        link={project.link}
-                      />
-                    </div>
+                    {project.image && (
+                      <div className="carousel-image-wrapper">
+                        <WorkImage
+                          image={project.image}
+                          alt={project.title}
+                          link={project.link}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
