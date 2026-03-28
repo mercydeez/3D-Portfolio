@@ -18,7 +18,7 @@ const projects = [
     category:
       "Production-grade Retrieval-Augmented Generation API for querying internal document stores using Pinecone vector search and LangChain.",
     tools: "LangChain, Pinecone, OpenAI, Python, Docker, FastAPI",
-    image: "/images/placeholder.webp",
+    image: "/images/preview1.png",
     status: "Completed",
   },
   {
@@ -26,7 +26,7 @@ const projects = [
     category:
       "Intelligent workflow automation using LangGraph and n8n to ingest tickets, analyze sentiment, and autonomously draft responses.",
     tools: "LangGraph, FastAPI, n8n, Python",
-    image: "/images/placeholder.webp",
+    image: "/images/preview1.png",
     status: "Active",
   },
   {
@@ -34,7 +34,7 @@ const projects = [
     category:
       "Stateless containerized microservice serving open-source Hugging Face models as inference APIs, deployed on AWS.",
     tools: "Hugging Face, FastAPI, Docker, AWS, Python",
-    image: "/images/placeholder.webp",
+    image: "/images/preview1.png",
     status: "Completed",
   },
 ];
