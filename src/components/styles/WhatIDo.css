@@ -15,6 +15,7 @@
   width: 50%;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
   z-index: 9;
 }
@@ -22,7 +23,7 @@
   font-size: calc(4vw + 25px);
   line-height: calc(4vw + 20px);
   font-weight: 600;
-  margin-right: 10%;
+  margin-right: 0;
   margin-bottom: 100px;
 }
 
@@ -35,12 +36,13 @@
 .what-box-in {
   flex-direction: column;
   height: 500px;
-  margin-left: 200px;
+  width: min(100%, 450px);
+  margin-left: clamp(48px, 7vw, 170px);
   position: relative;
   display: none;
 }
 .what-content {
-  width: 450px;
+  width: 100%;
   height: 33%;
   min-height: 50%;
   transition: 0.5s;
@@ -183,7 +185,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 450px;
+  width: 100%;
 }
 .what-border2 {
   position: absolute;
@@ -256,7 +258,7 @@
   }
   .what-content {
     padding: 30px;
-    width: 400px;
+    width: 100%;
   }
   .what-content p {
     font-size: 13px;
@@ -277,10 +279,11 @@
 }
 @media only screen and (max-width: 1400px) {
   .what-box-in {
-    margin-left: 50px;
+    margin-left: clamp(20px, 4vw, 60px);
+    width: min(100%, 400px);
   }
   .what-content {
-    width: 380px;
+    width: 100%;
   }
 }
 @media only screen and (max-width: 1024px) {
@@ -291,11 +294,12 @@
   }
   .what-box-in {
     height: 500px;
-    margin-left: -50px;
+    margin-left: 0;
+    width: min(100%, 500px);
   }
   .what-content {
     padding: 50px;
-    width: 500px;
+    width: 100%;
   }
   .what-content p {
     font-size: 14px;
@@ -338,6 +342,7 @@
   }
   .what-box-in {
     margin-left: 0px;
+    width: 100%;
     height: 450px;
   }
   .what-content h5,

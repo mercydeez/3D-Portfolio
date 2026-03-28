@@ -9,6 +9,12 @@ const Loading = ({ percent }: { percent: number }) => {
   const [loaded, setLoaded] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
+  const marqueeItems = [
+    "AI Engineer",
+    "LLM Systems",
+    "Agentic Workflows",
+    "Cloud Automation",
+  ];
 
   if (percent >= 100) {
     setTimeout(() => {
@@ -62,8 +68,11 @@ const Loading = ({ percent }: { percent: number }) => {
       <div className="loading-screen">
         <div className="loading-marquee">
           <Marquee>
-            <span> AI Engineer</span> <span>AI Engineer</span>
-            <span> AI Engineer</span> <span>AI Engineer</span>
+            {[...Array(3)].map((_, loopIndex) =>
+              marqueeItems.map((item) => (
+                <span key={`${loopIndex}-${item}`}>{item}</span>
+              ))
+            )}
           </Marquee>
         </div>
         <div

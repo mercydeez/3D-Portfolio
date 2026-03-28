@@ -18,7 +18,11 @@
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  --accentColor: #5eead4;
+  --accentColor: #ee005a;
+  --accentColorDeep: #c7004b;
+  --accentColorBright: #ff5f98;
+  --accentGlowSoft: #ffc2da;
+  --accentRgb: 238, 0, 90;
   --backgroundColor: #0a0e17;
   --vh: 100vh;
   --vh: 100svh;
