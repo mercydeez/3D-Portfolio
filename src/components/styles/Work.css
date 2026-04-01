@@ -18,7 +18,6 @@
   margin: 0 auto;
   flex-shrink: 0;
   box-sizing: border-box;
-  /* Padding left to align with the first card slightly or to match the grid if needed */
 }
 
 .work-section h2 {
@@ -49,21 +48,71 @@
   will-change: transform;
   /* Sync track start with the globally centered heading boundary */
   padding-left: calc((100vw - 1300px) / 2);
+  padding-right: 10vw; /* Space at end of scroll */
 }
+
+/* ── Breakpoints ── */
 
 @media only screen and (max-width: 1600px) {
   .work-flex {
     padding-left: max(80px, calc((100vw - 1200px) / 2));
   }
 }
+
 @media only screen and (max-width: 1400px) {
+  .work-section h2 {
+    font-size: 52px;
+  }
   .work-flex {
-    padding-left: calc((100vw - 900px) / 2);
+    padding-left: max(40px, calc((100vw - 900px) / 2));
+  }
+  .work-box {
+    width: 340px;
+  }
+  .work-number {
+    font-size: 44px;
   }
 }
+
 @media only screen and (max-width: 900px) {
+  .work-section {
+    height: auto; /* no longer pinned, flows naturally */
+    overflow: visible;
+  }
+  .work-section h2 {
+    font-size: 40px;
+  }
+  /* Mobile: use native horizontal scroll */
+  .work-track-outer {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* momentum scroll on iOS */
+    scrollbar-width: none; /* hide scrollbar Firefox */
+  }
+  .work-track-outer::-webkit-scrollbar {
+    display: none; /* hide scrollbar Chrome/Safari */
+  }
   .work-flex {
-    padding-left: max(5vw, calc((100vw - 500px) / 2));
+    transform: none !important; /* Reset GSAP transform */
+    padding-left: 5vw;
+    padding-right: 5vw;
+    scroll-snap-type: x mandatory; /* snap to each card as user swipes */
+  }
+  .work-box {
+    width: 85vw;
+    padding: 30px 20px;
+    gap: 20px;
+    scroll-snap-align: start; /* snaps cleanly to each card */
+    flex-shrink: 0;
+  }
+  .work-number {
+    font-size: 36px;
+  }
+  .work-title {
+    font-size: 16px;
+  }
+  .work-image img {
+    height: 180px;
   }
 }
 
@@ -168,8 +217,7 @@
   justify-content: center;
   align-items: center;
   font-size: 22px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
-    inset 0 0 8px #393939;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), inset 0 0 8px #393939;
   transition: opacity 0.3s;
   opacity: 0;
 }
@@ -198,47 +246,5 @@
   object-fit: cover;
   border-radius: 8px;
   display: block;
-  min-height: 200px;
   background-color: #1a1a1a;
-}
-
-/* ── Responsive ── */
-@media only screen and (max-width: 1400px) {
-  .work-section h2 {
-    font-size: 52px;
-  }
-
-  .work-box {
-    width: 340px;
-  }
-
-  .work-number {
-    font-size: 44px;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  /* Keep GSAP layout, just scale down text/boxes */
-  .work-section h2 {
-    font-size: 40px;
-  }
-
-  .work-box {
-    width: 85vw;
-    padding: 30px 20px;
-    gap: 20px;
-  }
-
-  .work-number {
-    font-size: 36px;
-  }
-
-  .work-title {
-    font-size: 16px;
-  }
-
-  .work-image img {
-    height: 180px;
-    min-height: 180px;
-  }
 }
