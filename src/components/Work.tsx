@@ -74,6 +74,8 @@ const projects: Project[] = [
 
 const Work = () => {
   useGSAP(() => {
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
     function getTranslateX() {
       const flexTrack = document.querySelector(".work-flex") as HTMLElement;
       const outerBox = document.querySelector(".work-track-outer") as HTMLElement;
