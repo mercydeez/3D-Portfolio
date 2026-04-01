@@ -74,17 +74,7 @@ const projects: Project[] = [
 
 const Work = () => {
   useGSAP(() => {
-    function alignTrack() {
-      const heading = document.querySelector(".work-heading-container") as HTMLElement;
-      const flexTrack = document.querySelector(".work-flex") as HTMLElement;
-      if (heading && flexTrack) {
-        const paddingLeft = heading.getBoundingClientRect().left;
-        flexTrack.style.paddingLeft = `${paddingLeft}px`;
-      }
-    }
-
     function getTranslateX() {
-      alignTrack(); 
       const flexTrack = document.querySelector(".work-flex") as HTMLElement;
       const boxes = document.querySelectorAll(".work-box");
       const outerBox = document.querySelector(".work-track-outer") as HTMLElement;
@@ -96,7 +86,7 @@ const Work = () => {
       const boxWidth = box.offsetWidth;
       const style = window.getComputedStyle(flexTrack);
       const gap = parseFloat(style.gap) || 0;
-      const paddingLeft = parseFloat(flexTrack.style.paddingLeft) || 0;
+      const paddingLeft = parseFloat(style.paddingLeft) || 0;
 
       const trackWidth = (boxWidth * boxes.length) + (gap * (boxes.length - 1)) + paddingLeft;
       const visibleWidth = outerBox.clientWidth;
