@@ -74,14 +74,26 @@ const projects: Project[] = [
 
 const Work = () => {
   useGSAP(() => {
+    function alignTrack() {
+      const heading = document.querySelector(".work-heading-container") as HTMLElement;
+      const flexTrack = document.querySelector(".work-flex") as HTMLElement;
+      if (heading && flexTrack) {
+        // Sync the scroll track's start exactly with the heading's computed margin
+        const paddingLeft = heading.getBoundingClientRect().left;
+        flexTrack.style.paddingLeft = `${paddingLeft}px`;
+      }
+    }
+
     function getTranslateX() {
-      const flexTrack = document.querySelector(".work-flex");
-      const outerBox = document.querySelector(".work-track-outer");
+      alignTrack(); 
+      const flexTrack = document.querySelector(".work-flex") as HTMLElement;
+      const outerBox = document.querySelector(".work-track-outer") as HTMLElement;
       
       if (!flexTrack || !outerBox) return 0;
 
-      const trackWidth = flexTrack.getBoundingClientRect().width;
-      const visibleWidth = outerBox.getBoundingClientRect().width;
+      // scrollWidth captures the full inner size perfectly and ignores active transforms
+      const trackWidth = flexTrack.scrollWidth;
+      const visibleWidth = outerBox.clientWidth;
 
       let distance = trackWidth - visibleWidth;
       return distance < 0 ? 0 : distance;
@@ -92,7 +104,7 @@ const Work = () => {
         trigger: ".work-section",
         start: "top top",
         end: () => `+=${getTranslateX()}`,
-        scrub: 1,
+        scrub: true, // Use boolean true rather than 1 to prevent fighting ScrollSmoother's native smooth
         pin: true,
         pinSpacing: true,
         id: "work",

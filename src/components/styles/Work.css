@@ -64,17 +64,6 @@
 /* First column: left border to close the strip */
 .work-box:first-child {
   border-left: 1px solid #363636;
-  margin-left: calc(50vw - 650px);
-}
-
-@media only screen and (max-width: 1600px) {
-  .work-box:first-child { margin-left: calc(50vw - 600px); }
-}
-@media only screen and (max-width: 1400px) {
-  .work-box:first-child { margin-left: calc(50vw - 450px); }
-}
-@media only screen and (max-width: 900px) {
-  .work-box:first-child { margin-left: 5vw; }
 }
 
 /* ── Header row: number left, title right ── */
