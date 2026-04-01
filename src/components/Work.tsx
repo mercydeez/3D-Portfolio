@@ -74,39 +74,35 @@ const projects: Project[] = [
 
 const Work = () => {
   useGSAP(() => {
-    let translateX = 0;
-
-    function setTranslateX() {
+    function getTranslateX() {
       const flexTrack = document.querySelector(".work-flex");
       const outerBox = document.querySelector(".work-track-outer");
       
-      if (!flexTrack || !outerBox) return;
+      if (!flexTrack || !outerBox) return 0;
 
       const trackWidth = flexTrack.getBoundingClientRect().width;
       const visibleWidth = outerBox.getBoundingClientRect().width;
 
-      translateX = trackWidth - visibleWidth;
-      // Safety check in case it's on a very large screen where everything fits
-      if (translateX < 0) translateX = 0;
+      let distance = trackWidth - visibleWidth;
+      return distance < 0 ? 0 : distance;
     }
-
-    setTranslateX();
 
     const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: ".work-section",
         start: "top top",
-        end: `+=${translateX}`,
+        end: () => `+=${getTranslateX()}`,
         scrub: 1,
         pin: true,
         pinSpacing: true,
         id: "work",
         anticipatePin: 1,
+        invalidateOnRefresh: true,
       },
     });
 
     timeline.to(".work-flex", {
-      x: -translateX,
+      x: () => -getTranslateX(),
       ease: "none",
     });
 
