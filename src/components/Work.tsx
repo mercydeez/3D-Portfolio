@@ -78,7 +78,6 @@ const Work = () => {
       const heading = document.querySelector(".work-heading-container") as HTMLElement;
       const flexTrack = document.querySelector(".work-flex") as HTMLElement;
       if (heading && flexTrack) {
-        // Sync the scroll track's start exactly with the heading's computed margin
         const paddingLeft = heading.getBoundingClientRect().left;
         flexTrack.style.paddingLeft = `${paddingLeft}px`;
       }
@@ -87,15 +86,25 @@ const Work = () => {
     function getTranslateX() {
       alignTrack(); 
       const flexTrack = document.querySelector(".work-flex") as HTMLElement;
+      const boxes = document.querySelectorAll(".work-box");
       const outerBox = document.querySelector(".work-track-outer") as HTMLElement;
       
-      if (!flexTrack || !outerBox) return 0;
+      if (!flexTrack || !outerBox || !boxes.length) return 0;
 
-      // scrollWidth captures the full inner size perfectly and ignores active transforms
-      const trackWidth = flexTrack.scrollWidth;
+      // Deterministic math unaffected by subpixel rendering or unfinished DOM loads
+      const box = boxes[0] as HTMLElement;
+      const boxWidth = box.offsetWidth;
+      const style = window.getComputedStyle(flexTrack);
+      const gap = parseFloat(style.gap) || 0;
+      const paddingLeft = parseFloat(flexTrack.style.paddingLeft) || 0;
+
+      const trackWidth = (boxWidth * boxes.length) + (gap * (boxes.length - 1)) + paddingLeft;
       const visibleWidth = outerBox.clientWidth;
 
       let distance = trackWidth - visibleWidth;
+      // Add a tiny buffer so the last card doesn't hit the absolute edge too abruptly
+      distance += 50; 
+      
       return distance < 0 ? 0 : distance;
     }
 
@@ -104,7 +113,7 @@ const Work = () => {
         trigger: ".work-section",
         start: "top top",
         end: () => `+=${getTranslateX()}`,
-        scrub: true, // Use boolean true rather than 1 to prevent fighting ScrollSmoother's native smooth
+        scrub: true,
         pin: true,
         pinSpacing: true,
         id: "work",
