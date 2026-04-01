@@ -198,6 +198,8 @@
   object-fit: cover;
   border-radius: 8px;
   display: block;
+  min-height: 200px;
+  background-color: #1a1a1a;
 }
 
 /* ── Responsive ── */
@@ -237,5 +239,6 @@
 
   .work-image img {
     height: 180px;
+    min-height: 180px;
   }
 }

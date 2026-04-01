@@ -36,7 +36,7 @@ const WorkImage = (props: Props) => {
           <div className="work-link">
             <MdArrowOutward />
           </div>
-          <img src={props.image} alt={props.alt} />
+          <img src={props.image} alt={props.alt} loading="eager" />
           {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
         </a>
       ) : (
@@ -45,7 +45,7 @@ const WorkImage = (props: Props) => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={() => setIsVideo(false)}
         >
-          <img src={props.image} alt={props.alt} />
+          <img src={props.image} alt={props.alt} loading="eager" />
           {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
         </div>
       )}

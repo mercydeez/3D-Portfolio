@@ -87,25 +87,53 @@ const Work = () => {
       return distance < 0 ? 0 : distance + 50;
     }
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".work-section",
-        start: "top top",
-        end: () => `+=${getTranslateX()}`,
-        scrub: true,
-        pin: true,
-        pinSpacing: true,
-        id: "work",
-      },
-    });
+    function initScrollTrigger() {
+      const distance = getTranslateX();
+      if (distance === 0) return; // Prevent pinning empty tracks
 
-    timeline.to(".work-flex", {
-      x: () => -getTranslateX(),
-      ease: "none",
-    });
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".work-section",
+          start: "top top",
+          end: `+=${distance}`, // Map strictly to pre-calculated layout sizes
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          id: "work",
+        },
+      });
+
+      timeline.to(".work-flex", {
+        x: -distance, // Enforce strict map, prevent GSAP recursive evaluations
+        ease: "none",
+      });
+    }
+
+    // Await layout finalization of media elements to guarantee accurate parent width
+    const images = Array.from(
+      document.querySelectorAll(".work-flex img")
+    ) as HTMLImageElement[];
+
+    const pending = images.filter((img) => !img.complete);
+
+    if (pending.length === 0) {
+      initScrollTrigger();
+    } else {
+      let loaded = 0;
+      pending.forEach((img) => {
+        const onLoad = () => {
+          loaded++;
+          if (loaded === pending.length) {
+            // Give the browser 1 tick to flush dimension recalculations
+            requestAnimationFrame(() => requestAnimationFrame(initScrollTrigger));
+          }
+        };
+        img.addEventListener("load", onLoad, { once: true });
+        img.addEventListener("error", onLoad, { once: true });
+      });
+    }
 
     return () => {
-      timeline.kill();
       ScrollTrigger.getById("work")?.kill();
     };
   }, []);
