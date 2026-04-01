@@ -1,0 +1,243 @@
+/* ── Section shell — pinned by GSAP ── */
+.work-section {
+  position: relative;
+  z-index: 1;
+  background-color: var(--backgroundColor);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 80px;
+  box-sizing: border-box;
+  overflow: hidden; /* clips the scrolling flex track */
+}
+
+/* ── Heading block — same width/margin as other sections ── */
+.work-heading-container {
+  margin: 0 auto;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  /* Padding left to align with the first card slightly or to match the grid if needed */
+}
+
+.work-section h2 {
+  font-size: 70px;
+  font-weight: 500;
+  margin: 0;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #363636;
+}
+
+.work-section h2 > span {
+  color: var(--accentColor);
+}
+
+/* ── Outer track wrapper — full width, clips overflow ── */
+.work-track-outer {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Horizontal flex track — grows to natural content width ── */
+.work-flex {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+}
+
+/* ── Individual project column ── */
+.work-box {
+  width: 380px;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 40px 36px;
+  border-right: 1px solid #363636;
+  box-sizing: border-box;
+}
+
+/* First column: left border to close the strip */
+.work-box:first-child {
+  border-left: 1px solid #363636;
+  margin-left: calc(50vw - 650px);
+}
+
+@media only screen and (max-width: 1600px) {
+  .work-box:first-child { margin-left: calc(50vw - 600px); }
+}
+@media only screen and (max-width: 1400px) {
+  .work-box:first-child { margin-left: calc(50vw - 450px); }
+}
+@media only screen and (max-width: 900px) {
+  .work-box:first-child { margin-left: 0; }
+}
+
+/* ── Header row: number left, title right ── */
+.work-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.work-number {
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.work-title-group {
+  text-align: right;
+}
+
+.work-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.work-category {
+  font-size: 13px;
+  font-weight: 300;
+  color: #888;
+  margin: 0;
+}
+
+/* ── Tools block ── */
+.work-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tools-label {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.tools-list {
+  font-size: 14px;
+  font-weight: 300;
+  color: #888;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Image area ── */
+.work-image-area {
+  margin-top: auto;
+}
+
+/* ── WorkImage component wrappers ── */
+.work-image {
+  display: flex;
+  width: 100%;
+}
+
+.work-image-in {
+  position: relative;
+  width: 100%;
+}
+
+.work-link {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: var(--backgroundColor);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
+    inset 0 0 8px #393939;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.work-image a:hover {
+  color: inherit;
+}
+
+.work-image a:hover .work-link {
+  opacity: 1;
+}
+
+.work-image video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.work-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media only screen and (max-width: 1400px) {
+  .work-section h2 {
+    font-size: 52px;
+  }
+
+  .work-box {
+    width: 340px;
+  }
+
+  .work-number {
+    font-size: 44px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  /* On mobile, collapse to vertical; GSAP pin won't fire */
+  .work-section {
+    height: auto;
+    overflow: visible;
+    padding: 50px 0;
+  }
+
+  .work-track-outer {
+    overflow: visible;
+  }
+
+  .work-flex {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+
+  .work-box {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #363636;
+    margin-left: 0 !important;
+  }
+
+  .work-box:first-child {
+    border-left: none;
+  }
+
+  .work-section h2 {
+    font-size: 40px;
+  }
+}
