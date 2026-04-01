@@ -76,26 +76,15 @@ const Work = () => {
   useGSAP(() => {
     function getTranslateX() {
       const flexTrack = document.querySelector(".work-flex") as HTMLElement;
-      const boxes = document.querySelectorAll(".work-box");
       const outerBox = document.querySelector(".work-track-outer") as HTMLElement;
       
-      if (!flexTrack || !outerBox || !boxes.length) return 0;
+      if (!flexTrack || !outerBox) return 0;
 
-      // Deterministic math unaffected by subpixel rendering or unfinished DOM loads
-      const box = boxes[0] as HTMLElement;
-      const boxWidth = box.offsetWidth;
-      const style = window.getComputedStyle(flexTrack);
-      const gap = parseFloat(style.gap) || 0;
-      const paddingLeft = parseFloat(style.paddingLeft) || 0;
-
-      const trackWidth = (boxWidth * boxes.length) + (gap * (boxes.length - 1)) + paddingLeft;
+      const trackWidth = flexTrack.scrollWidth;
       const visibleWidth = outerBox.clientWidth;
 
       let distance = trackWidth - visibleWidth;
-      // Add a tiny buffer so the last card doesn't hit the absolute edge too abruptly
-      distance += 50; 
-      
-      return distance < 0 ? 0 : distance;
+      return distance < 0 ? 0 : distance + 50;
     }
 
     const timeline = gsap.timeline({
@@ -107,8 +96,6 @@ const Work = () => {
         pin: true,
         pinSpacing: true,
         id: "work",
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
       },
     });
 

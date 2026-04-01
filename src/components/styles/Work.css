@@ -4,6 +4,7 @@
   z-index: 1;
   background-color: var(--backgroundColor);
   height: 100vh;
+  height: 100dvh; /* Fix address bar bleed on mobile */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
