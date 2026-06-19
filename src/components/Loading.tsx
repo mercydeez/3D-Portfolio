@@ -16,14 +16,20 @@ const Loading = ({ percent }: { percent: number }) => {
     "Cloud Automation",
   ];
 
-  if (percent >= 100) {
-    setTimeout(() => {
-      setLoaded(true);
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 1000);
-    }, 600);
-  }
+  // Drive the load-complete transition from an effect (keyed on percent) rather
+  // than the render body, so the timers are scheduled once and cleaned up on
+  // unmount instead of being re-created on every render at 100%.
+  useEffect(() => {
+    if (percent < 100) return;
+    const timer = setTimeout(() => setLoaded(true), 600);
+    return () => clearTimeout(timer);
+  }, [percent]);
+
+  useEffect(() => {
+    if (!loaded) return;
+    const timer = setTimeout(() => setIsLoaded(true), 1000);
+    return () => clearTimeout(timer);
+  }, [loaded]);
 
   useEffect(() => {
     import("./utils/initialFX").then((module) => {
