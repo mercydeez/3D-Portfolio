@@ -76,68 +76,77 @@ const Work = () => {
   useGSAP(() => {
     ScrollTrigger.config({ ignoreMobileResize: true });
 
-    function getTranslateX() {
-      const flexTrack = document.querySelector(".work-flex") as HTMLElement;
-      const outerBox = document.querySelector(".work-track-outer") as HTMLElement;
-      
-      if (!flexTrack || !outerBox) return 0;
+    // Pin/scrub horizontal-scroll is a desktop-only effect. Below 901px the CSS
+    // switches `.work-track-outer` to native touch scrolling with scroll-snap;
+    // gating GSAP out of that range entirely (rather than just resetting the
+    // transform in CSS) prevents the pin's scroll-jacking from fighting the
+    // browser's native touch scroll, which is what caused the mobile jitter.
+    ScrollTrigger.matchMedia({
+      "(min-width: 901px)": () => {
+        function getTranslateX() {
+          const flexTrack = document.querySelector(".work-flex") as HTMLElement;
+          const outerBox = document.querySelector(".work-track-outer") as HTMLElement;
 
-      const trackWidth = flexTrack.scrollWidth;
-      const visibleWidth = outerBox.clientWidth;
+          if (!flexTrack || !outerBox) return 0;
 
-      let distance = trackWidth - visibleWidth;
-      return distance < 0 ? 0 : distance + 50;
-    }
+          const trackWidth = flexTrack.scrollWidth;
+          const visibleWidth = outerBox.clientWidth;
 
-    function initScrollTrigger() {
-      const distance = getTranslateX();
-      if (distance === 0) return; // Prevent pinning empty tracks
+          let distance = trackWidth - visibleWidth;
+          return distance < 0 ? 0 : distance + 50;
+        }
 
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".work-section",
-          start: "top top",
-          end: `+=${distance}`, // Map strictly to pre-calculated layout sizes
-          scrub: true,
-          pin: true,
-          pinSpacing: true,
-          id: "work",
-        },
-      });
+        function initScrollTrigger() {
+          const distance = getTranslateX();
+          if (distance === 0) return; // Prevent pinning empty tracks
 
-      timeline.to(".work-flex", {
-        x: -distance, // Enforce strict map, prevent GSAP recursive evaluations
-        ease: "none",
-      });
-    }
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".work-section",
+              start: "top top",
+              end: `+=${distance}`, // Map strictly to pre-calculated layout sizes
+              scrub: true,
+              pin: true,
+              pinSpacing: true,
+              id: "work",
+            },
+          });
 
-    // Await layout finalization of media elements to guarantee accurate parent width
-    const images = Array.from(
-      document.querySelectorAll(".work-flex img")
-    ) as HTMLImageElement[];
+          timeline.to(".work-flex", {
+            x: -distance, // Enforce strict map, prevent GSAP recursive evaluations
+            ease: "none",
+          });
+        }
 
-    const pending = images.filter((img) => !img.complete);
+        // Await layout finalization of media elements to guarantee accurate parent width
+        const images = Array.from(
+          document.querySelectorAll(".work-flex img")
+        ) as HTMLImageElement[];
 
-    if (pending.length === 0) {
-      initScrollTrigger();
-    } else {
-      let loaded = 0;
-      pending.forEach((img) => {
-        const onLoad = () => {
-          loaded++;
-          if (loaded === pending.length) {
-            // Give the browser 1 tick to flush dimension recalculations
-            requestAnimationFrame(() => requestAnimationFrame(initScrollTrigger));
-          }
+        const pending = images.filter((img) => !img.complete);
+
+        if (pending.length === 0) {
+          initScrollTrigger();
+        } else {
+          let loaded = 0;
+          pending.forEach((img) => {
+            const onLoad = () => {
+              loaded++;
+              if (loaded === pending.length) {
+                // Give the browser 1 tick to flush dimension recalculations
+                requestAnimationFrame(() => requestAnimationFrame(initScrollTrigger));
+              }
+            };
+            img.addEventListener("load", onLoad, { once: true });
+            img.addEventListener("error", onLoad, { once: true });
+          });
+        }
+
+        return () => {
+          ScrollTrigger.getById("work")?.kill();
         };
-        img.addEventListener("load", onLoad, { once: true });
-        img.addEventListener("error", onLoad, { once: true });
-      });
-    }
-
-    return () => {
-      ScrollTrigger.getById("work")?.kill();
-    };
+      },
+    });
   }, []);
 
   return (
