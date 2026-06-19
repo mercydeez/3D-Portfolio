@@ -13,6 +13,15 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 export default function setSplitText() {
   ScrollTrigger.config({ ignoreMobileResize: true });
   if (window.innerWidth < 900) return;
+
+  // Wait for web fonts to finish loading before splitting. Splitting against
+  // fallback-font metrics makes GSAP warn ("SplitText called before fonts
+  // loaded") and can mis-measure line/word breaks. Once fonts are loaded this
+  // resolves on the next microtask, so repeat calls (resize/refresh) are cheap.
+  document.fonts.ready.then(() => splitAndAnimate());
+}
+
+function splitAndAnimate() {
   const paras: NodeListOf<ParaElement> = document.querySelectorAll(".para");
   const titles: NodeListOf<ParaElement> = document.querySelectorAll(".title");
 

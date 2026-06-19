@@ -12,6 +12,14 @@ export function initialFX() {
     delay: 1,
   });
 
+  // Defer the text-splitting/intro animation until web fonts are loaded so
+  // SplitText measures real glyph metrics (avoids the "SplitText called before
+  // fonts loaded" warning and mis-aligned characters). Scroll is already
+  // un-paused above, so this only delays the landing text reveal by a microtask.
+  document.fonts.ready.then(() => runLandingTextFX());
+}
+
+function runLandingTextFX() {
   var landingText = new SplitText(
     [".landing-info h3", ".landing-intro h2", ".landing-intro h1"],
     {
